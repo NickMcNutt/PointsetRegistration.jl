@@ -18,7 +18,7 @@ end
 function random_permute!{T}(A::Vector{Matrix{T}})
     m = length(A)
     d, n = size(A[1])
-    P = Vector{Matrix{Int}}(m)
+    P = Vector{Matrix{T}}(m)
 
     for i in 1:m
         P[i] = eye(n)[:, randperm(n)]

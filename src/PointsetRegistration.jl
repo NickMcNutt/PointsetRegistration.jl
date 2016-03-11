@@ -26,7 +26,7 @@ export
     maximize_trace, parallel_pairwise_register, project_to_stiefel, stiefel_to_permutations,
 
     # pointsets.jl
-    trim, random_perturb!, random_permute!, random_rotate!, pointsets_transform, pointsets_error
+    trim, random_perturb!, random_permute!, random_rotate!, pointsets_transform, pointsets_rmsd
 
 include("accelerated_routines.jl")
 include("clustering.jl")
