@@ -11,11 +11,11 @@ function parallel_density_grid{T}(C::Matrix{T}, width::T, d::Int, σ::T, ϵ::T =
     end
     
     ρs_compressed = pmap(params, pids = collect(take(workers(), num_workers))) do p
-        Blosc.compress(density_grid(p...), level = 9, shuffle = true, itemsize = sizeof(T))
+        compress(density_grid(p...), level = 9, shuffle = true, itemsize = sizeof(T))
     end
 
     ρ = mapreduce(.+, zeros(T, d^3), ρs_compressed) do ρ_compressed
-        Blosc.decompress(T, ρ_compressed)
+        decompress(T, ρ_compressed)
     end
 
     return reshape(ρ, d, d, d)
