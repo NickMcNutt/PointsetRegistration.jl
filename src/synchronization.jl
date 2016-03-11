@@ -1,20 +1,4 @@
-using Convex, Mosek
 import Munkres: munkres
-
-function maximize_trace{T}(C::Matrix{T}, d::Int)
-    m = fld(size(C, 1), d)
-    Y = Semidefinite(d*m, d*m)
-    constraints = Constraint[]
-    
-    for i in 1:m
-        push!(constraints, Y[(i-1)*d+1:i*d, (i-1)*d+1:i*d] == eye(T, d))
-    end
-    
-    problem = maximize(trace(C*Y), constraints)
-    solve!(problem, MosekSolver())
-    
-    return evaluate(Y)
-end
 
 function parallel_pairwise_register{N, T}(n::Int, g::Int, kinds::NTuple{N, Vector{Matrix{T}}}, weights::NTuple{N, T})
     queue = []
