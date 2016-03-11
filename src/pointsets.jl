@@ -41,56 +41,19 @@ function random_rotate!{T}(A::Vector{Matrix{T}})
     return R
 end
 
-
-
 function pointsets_transform{T}(A::Vector{Matrix{T}}, R::Vector{Matrix{T}}, P::Vector{Matrix{T}})
     d, n = size(A[1])
     m = min(length(R), length(A), length(P))
     A_hat = [R[i] * A[i] * P[i] for i in 1:m]
 end
 
-function pointsets_transform{T}(A::Vector{Matrix{T}}, P::Vector{Matrix{T}})
-    d, n = size(A[1])
-    m = min(length(R), length(A), length(P))
-    A_hat = [A[i] * P[i] for i in 1:m]
-end 
 
-function pointsets_transform{T}(A::Vector{Matrix{T}}, R::Vector{Matrix{T}})
-    d, n = size(A[1])
-    m = min(length(R), length(A), length(P))
-    A_hat = [R[i] * A[i] for i in 1:m]
-end
-
-
-
-function pointsets_error{T}(A::Vector{Matrix{T}})
+function pointsets_rmsd{T}(A::Vector{Matrix{T}})
     d, n = size(A[1])
     m = length(A)
-    A_hat = [A[i] for i in 1:m]
-    X_hat = mean(A_hat)
-    return vecnorm([vecnorm(X_hat - A_hat[i]) for i in 1:m]) / sqrt(d*n*m)
+    X = mean(A)
+
+    return vecnorm(map(A) do B vecnorm(X - B) end) / sqrt(d*n*m)
 end
 
-function pointsets_error{T}(A::Vector{Matrix{T}}, R::Vector{Matrix{T}})
-    d, n = size(A[1])
-    m = length(A)
-    A_hat = [R[i] * A[i] for i in 1:m]
-    X_hat = mean(A_hat)
-    return vecnorm([vecnorm(X_hat - A_hat[i]) for i in 1:m]) / sqrt(d*n*m)
-end
-
-function pointsets_error{T}(A::Vector{Matrix{T}}, R::Vector{Matrix{T}}, P::Vector{Matrix{Int}})
-    d, n = size(A[1])
-    m = length(A)
-    A_hat = [R[i] * A[i] * P[i] for i in 1:m]
-    X_hat = mean(A_hat)
-    return vecnorm([vecnorm(X_hat - A_hat[i]) for i in 1:m]) / sqrt(d*n*m)
-end
-
-function pointsets_error{T}(A::Vector{Matrix{T}}, R::Vector{Matrix{T}}, P::Vector{Matrix{T}})
-    d, n = size(A[1])
-    m = length(A)
-    A_hat = [R[i] * A[i] * P[i] for i in 1:m]
-    X_hat = mean(A_hat)
-    return vecnorm([vecnorm(X_hat - A_hat[i]) for i in 1:m]) / sqrt(d*n*m)
-end
+pointsets_rmsd{T}(A::Vector{Matrix{T}}, R::Vector{Matrix{T}}, P::Vector{Matrix{T}}) = pointsets_rmsd(pointsets_transform(A, R, P))

@@ -1,4 +1,4 @@
-function maximize_trace{T}(C::Matrix, d::Int)
+function maximize_trace{T}(C::Matrix{T}, d::Int)
     m = fld(size(C, 1), d)
     Y = Semidefinite(d*m, d*m)
     constraints = Constraint[]
