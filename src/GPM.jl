@@ -1,3 +1,5 @@
+import Munkres: munkres
+
 function GPM_orthogonal{T}(C::Matrix{T}, x₁::Matrix{T}, num_iters::Int, d::Int = 3)
     α = max(0, -eigmin(C))
     C̃ = C + α*I

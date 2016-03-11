@@ -1,3 +1,6 @@
+import Munkres: munkres
+import Combinatorics: permutations
+
 function register{N, T}(weights::NTuple{N, T}, X::NTuple{N, Matrix{T}}, Y::NTuple{N, Matrix{T}}, C::Matrix{T}, invert::Bool = false)
     M = Matrix{T}[Matrix{T}(size(X[i], 2), size(X[i], 2)) for i in 1:N]
     P_min = Matrix{T}[Matrix{T}(size(X[i], 2), size(X[i], 2)) for i in 1:N]
@@ -49,7 +52,7 @@ function register{N, T}(weights::NTuple{N, T}, X::NTuple{N, Matrix{T}}, Y::NTupl
             copy!(Q_min, nearest_orthogonal(Q))
 
             for j in 1:N
-                p = Munkres.munkres(M[j])
+                p = munkres(M[j])
                 P_min[j] = eye(M[j])[:, p]
             end
         end

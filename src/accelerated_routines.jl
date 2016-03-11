@@ -1,3 +1,5 @@
+import Munkres: munkres
+
 function neg_XᵀRY!{T}(M::Matrix{T}, X::Matrix{T}, Y::Matrix{T}, R::Matrix{T})
     n = size(X, 2)
     
@@ -46,7 +48,7 @@ end
 
 function cost{T}(weight::T, Q::Matrix{T}, M::Matrix{T}, X::Matrix{T}, Y::Matrix{T}, R::Matrix{T})
     neg_XᵀRY!(M, X, Y, R)
-    p = Munkres.munkres(M)
+    p = munkres(M)
     wYPXᵀ!(weight, Q, X, Y, p)
     
     return weight * cost(M, p)
