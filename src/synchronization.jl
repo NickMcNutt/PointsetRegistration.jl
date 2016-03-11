@@ -66,14 +66,14 @@ function project_to_stiefel(C::AbstractMatrix, d::Int)
     return E[:vectors]
 end
 
-function stiefel_to_permutations(T::Type, U::Matrix)
+function stiefel_to_permutations{T}(U::Matrix{T})
     n = size(U, 2)
     m = fld(size(U, 1), n)
     
     P = map(1:m) do i
         P_i1 = U[(i-1)*n + 1:i*n, 1:n] * U[1:n, 1:n]'
         p = munkres(-P_i1')
-        eye(Int, n)[:, p]
+        eye(T, n)[:, p]
     end
     
     return P
