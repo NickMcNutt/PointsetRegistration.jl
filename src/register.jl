@@ -119,7 +119,7 @@ function iterative_register{N, T}(weights::NTuple{N, T}, X::NTuple{N, Vector{Mat
 
             for j in 1:N
                 S[j] = sum(A[j])' - A[j][k]'
-                S[j] -= A[j][k]'
+                #S[j] -= A[j][k]'
                 B[j] = A[j][k]
             end     
             
