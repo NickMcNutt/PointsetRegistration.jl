@@ -47,6 +47,11 @@ function pointsets_transform{T}(A::Vector{Matrix{T}}, R::Vector{Matrix{T}}, P::V
     A_hat = [R[i] * A[i] * P[i] for i in 1:m]
 end
 
+function pointsets_transform{T}(A::Vector{Matrix{T}}, R::Vector{Matrix{T}})
+    d, n = size(A[1])
+    m = min(length(R), length(A))
+    A_hat = [R[i] * A[i] for i in 1:m]
+end
 
 function pointsets_rmsd{T}(A::Vector{Matrix{T}})
     d, n = size(A[1])
