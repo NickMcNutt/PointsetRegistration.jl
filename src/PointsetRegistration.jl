@@ -23,7 +23,7 @@ export
     register, iterative_register, register_exact,
 
     # synchronization.jl
-    parallel_pairwise_register, project_to_stiefel, stiefel_to_permutations,
+    maximize_trace, parallel_pairwise_register, project_to_stiefel, stiefel_to_permutations,
 
     # pointsets.jl
     trim, random_perturb!, random_permute!, random_rotate!, pointsets_transform, pointsets_rmsd
