@@ -1,6 +1,6 @@
 import Munkres: munkres
 
-function GPM_orthogonal{T}(C::Matrix{T}, x₁::Matrix{T}, num_iters::Int, d::Int = 3)
+function GPM_orthogonal{T}(C::Matrix{T}, x₁::Matrix{T}, num_iters::Int, r::Int = 3, c::Int = 3)
     α = max(0, -eigmin(C))
     C̃ = C + α*I
     
@@ -9,7 +9,7 @@ function GPM_orthogonal{T}(C::Matrix{T}, x₁::Matrix{T}, num_iters::Int, d::Int
     
     for i in 2:num_iters
         D = C̃ * x[i-1]
-        O = split_blocks(D, d, d)
+        O = split_blocks(D, r, c)
         map!(nearest_orthogonal, O)
         x[i] = join_blocks(O)
     end
