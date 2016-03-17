@@ -16,11 +16,8 @@ export
     # density_grid.jl
     parallel_density_grid, density_grid, density_grid_stats,
 
-    # mayavi_plotting.jl
-    figure, plot_points, axes, sync,
-
     # register.jl
-    register, iterative_register, register_exact,
+    register, exact_register, gaussian_register, register_to_reference,
 
     # synchronization.jl
     parallel_pairwise_register, project_to_stiefel, stiefel_to_permutations,
