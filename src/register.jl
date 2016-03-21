@@ -50,7 +50,7 @@ function register{N, T}(weights::NTuple{N, T}, X::NTuple{N, Matrix{T}}, Y::NTupl
         if c < cost_min
             cost_min = c
 
-            copy!(Q_min, nearest_orthogonal(Q))
+	    nearest_orthogonal!(Q_min, Q')
 
             for j in 1:N
                 p = munkres(M[j])
