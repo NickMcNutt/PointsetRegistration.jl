@@ -13,7 +13,7 @@ function parallel_pairwise_register{N, T}(n::Int, g::Int, kinds::NTuple{N, Vecto
 
     cells = pmap(queue) do pair
         weights, X, Y = pair
-        G = grid_coords(1π, g)
+        G = grid_coords(2π, g)
         d1, R1, P1 = register(weights, X, Y, G, false)
         d2, R2, P2 = register(weights, X, Y, G, true)
         if d1 < d2
