@@ -31,8 +31,8 @@ function parallel_pairwise_register{N, T}(n::Int, g::Int, kinds::NTuple{N, Vecto
         for j in 1:i
             d, r, p = shift!(cells)
             D[i, j] = D[j, i] = d
-            R[i, j] = r'
-            R[j, i] = r
+            R[i, j] = r
+            R[j, i] = r'
 
             for k in 1:N
                 P[k][i, j] = p[k]'
