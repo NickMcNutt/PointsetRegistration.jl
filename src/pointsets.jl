@@ -34,6 +34,19 @@ function random_rotate!{T}(A::Vector{Matrix{T}})
     R = Vector{Matrix{T}}(m)
 
     for i in 1:m
+        R[i] = random_rotation()
+        copy!(A[i], R[i]' * A[i])
+    end
+
+    return R
+end
+
+function random_rotate_reflect!{T}(A::Vector{Matrix{T}})
+    m = length(A)
+    d, n = size(A[1])
+    R = Vector{Matrix{T}}(m)
+
+    for i in 1:m
         R[i] = random_orthogonal(3)
         copy!(A[i], R[i]' * A[i])
     end
