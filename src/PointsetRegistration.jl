@@ -37,5 +37,6 @@ include("density_grid.jl")
 include("register.jl")
 include("synchronization.jl")
 include("pointsets.jl")
+include("irreps_O3.jl")
 
 end
