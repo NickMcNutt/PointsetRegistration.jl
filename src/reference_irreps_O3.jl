@@ -1,3 +1,25 @@
+# This code generates the 2l+l dimensional real irreducible representations of O(3).
+#
+# For a function defined on the sphere (f: S² → R) and represented in the basis of the
+# real spherical harmonics, these matrix representations rotate/reflect the function
+# about an axis in 3D space.
+#
+# The routines in this file are based upon:
+#
+#   Rotation Matrices for Real Spherical Harmonics, Direct Determination by Recursion
+#   Joseph Ivanic and Klaus Ruedenberg
+#   J. Phys. Chem., Vol. 100, No. 15, 1996
+#
+# The article contains numerous errors, and the "Additions and Corrections"
+# — J. Phys. Chem. A, Vol. 102, No. 45, 1998 — also contains at least one error,
+# for the matrices generated using Table 2 do not constitute an O(3) group
+# homomorphism. A few empirical tests reveal that the term "sqrt(1 - δ(m,-1))" should
+# probably be changed to "sqrt(1 + δ(m,-1))" in Table 2 for "V_mm'" and "m < 0".
+#
+# This file contains a reference implementation of the (corrected) methods in the
+# article. The code in this file is not intended for actual use, however, as an
+# optimized implementation exists in irreps_O3.jl.
+
 function R(R₀, l::Int, m::Int, n::Int)
     #println("R: l = $l, m = $m, n = $n")
     if abs(m) > l || abs(n) > l
