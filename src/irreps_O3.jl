@@ -82,7 +82,7 @@ irrep_O3!{T}(N::Matrix{T}, M::Matrix{T}, R::Matrix{T}) = irrep_O3!(N, M, R, Val{
 
 Generate an irrep of O(3) of dimension 2l+1 from irrep M of dimension 2l-1 and irrep R of dimension 3.
 """
-irrep_O3{T}(M::Matrix{T}, R::Matrix{T}) = irrep_O3!(Matrix{T}(collect(size(M)) .+ 2), M, R)
+irrep_O3{T}(M::Matrix{T}, R::Matrix{T}) = irrep_O3!(Matrix{T}(size(M, 1) + 2, size(M, 2) + 2), M, R)
 
 """
     irrep_O3(R, l)
