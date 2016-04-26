@@ -70,11 +70,23 @@ end
 
 @generated irrep_O3!{L}(N::Matrix, M::Matrix, R::Matrix, ::Type{Val{L}}) = Expr(:block, (irrep_O3_coeff(L, i, j) for i in -L:L, j in -L:L)..., :N)
 
-"Generate an irrep of O(3) of dimension 2l+1 from irrep M of dimension 2l-1 and irrep R of dimension 3, and store it in matrix N"
+"""
+    irrep_O3!(N, M, R)
+
+Generate an irrep of O(3) of dimension 2l+1 from irrep M of dimension 2l-1 and irrep R of dimension 3, and store it in matrix N
+"""
 irrep_O3!{T}(N::Matrix{T}, M::Matrix{T}, R::Matrix{T}) = irrep_O3!(N, M, R, Val{fld(size(N, 1), 2)})
 
-"Generate an irrep of O(3) of dimension 2l+1 from irrep M of dimension 2l-1 and irrep R of dimension 3"
+"""
+    irrep_O3(M, R)
+
+Generate an irrep of O(3) of dimension 2l+1 from irrep M of dimension 2l-1 and irrep R of dimension 3
+"""
 irrep_O3{T}(M::Matrix{T}, R::Matrix{T}) = irrep_O3!(Matrix{T}(collect(size(M)) .+ 2), M, R)
 
-"Generate an irrep of O(3) of dimension 2l+1 from irrep R of dimension 3"
+"""
+    irrep_O3(R, l)
+
+Generate an irrep of O(3) of dimension 2l+1 from irrep R of dimension 3
+"""
 irrep_O3{T}(R::Matrix{T}, l::Int) = l == 1 ? R : irrep_O3(irrep_O3(R, l - 1), R)
