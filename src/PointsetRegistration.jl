@@ -26,7 +26,7 @@ export
     trim, random_perturb!, random_permute!, random_rotate!, random_rotate_reflect!, pointsets_transform, pointsets_rmsd,
 
     # group_representations
-    real_O3_irrep!, real_O3_irrep
+    irrep_O3!, irrep_O3
 
 
 include("accelerated_routines.jl")

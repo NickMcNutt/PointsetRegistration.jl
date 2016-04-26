@@ -13,7 +13,7 @@ function P(l::Int, i::Int, m::Int, n::Int)
     end
 end
 
-function real_O3_irrep(l::Int, m::Int, n::Int)
+function irrep_O3(l::Int, m::Int, n::Int)
     num_u = (l + m) * (l - m)
     num_v = (1 + δ(m, 0)) * (l + abs(m) - 1) * (l + abs(m))
     num_w = (l - abs(m) - 1) * (l - abs(m))
@@ -39,7 +39,7 @@ function real_O3_irrep(l::Int, m::Int, n::Int)
     :(N[$(m + l + 1), $(n + l + 1)] = $(ex))
 end
 
-@generated real_O3_irrep!{L}(N::Matrix, M::Matrix, R::Matrix, ::Type{Val{L}}) = Expr(:block, (real_O3_irrep(L, i, j) for i in -L:L, j in -L:L)..., :N)
-real_O3_irrep!{T}(N::Matrix{T}, M::Matrix{T}, R::Matrix{T}) = real_O3_irrep!(N, M, R, Val{fld(size(N, 1), 2)})
-real_O3_irrep{T}(M::Matrix{T}, R::Matrix{T}) = real_O3_irrep!(Matrix{T}(size(M, 1) + 2, size(M, 1) + 2), M, R)
-real_O3_irrep{T}(R::Matrix{T}, l::Int) = l == 1 ? R : real_O3_irrep(real_O3_irrep(R, l - 1), R)
+@generated irrep_O3!{L}(N::Matrix, M::Matrix, R::Matrix, ::Type{Val{L}}) = Expr(:block, (irrep_O3(L, i, j) for i in -L:L, j in -L:L)..., :N)
+irrep_O3!{T}(N::Matrix{T}, M::Matrix{T}, R::Matrix{T}) = irrep_O3!(N, M, R, Val{fld(size(N, 1), 2)})
+irrep_O3{T}(M::Matrix{T}, R::Matrix{T}) = irrep_O3!(Matrix{T}(size(M, 1) + 2, size(M, 1) + 2), M, R)
+irrep_O3{T}(R::Matrix{T}, l::Int) = l == 1 ? R : irrep_O3(irrep_O3(R, l - 1), R)
