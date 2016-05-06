@@ -68,25 +68,25 @@ function irrep_O3_coeff(l::Int, m::Int, n::Int)
     :(N[$(m + l + 1), $(n + l + 1)] = $(ex))
 end
 
-@generated irrep_O3!{L}(N::Matrix, M::Matrix, R::Matrix, ::Type{Val{L}}) = Expr(:block, (irrep_O3_coeff(L, i, j) for i in -L:L, j in -L:L)..., :N)
+@generated irrep_O3!{L}(N::AbstractMatrix, M::AbstractMatrix, R::AbstractMatrix, ::Type{Val{L}}) = Expr(:block, (irrep_O3_coeff(L, i, j) for i in -L:L, j in -L:L)..., :N)
 
 """
     irrep_O3!(N, M, R)
 
 Generate an irrep of O(3) of dimension 2l+1 from irrep M of dimension 2l-1 and irrep R of dimension 3, and store it in matrix N.
 """
-irrep_O3!{T}(N::Matrix{T}, M::Matrix{T}, R::Matrix{T}) = irrep_O3!(N, M, R, Val{fld(size(N, 1), 2)})
+irrep_O3!{T}(N::AbstractMatrix{T}, M::AbstractMatrix{T}, R::AbstractMatrix{T}) = irrep_O3!(N, M, R, Val{fld(size(N, 1), 2)})
 
 """
     irrep_O3(M, R)
 
 Generate an irrep of O(3) of dimension 2l+1 from irrep M of dimension 2l-1 and irrep R of dimension 3.
 """
-irrep_O3{T}(M::Matrix{T}, R::Matrix{T}) = irrep_O3!(Matrix{T}(size(M, 1) + 2, size(M, 2) + 2), M, R)
+irrep_O3{T}(M::AbstractMatrix{T}, R::AbstractMatrix{T}) = irrep_O3!(Matrix{T}(size(M, 1) + 2, size(M, 2) + 2), M, R)
 
 """
     irrep_O3(R, l)
 
 Generate an irrep of O(3) of dimension 2l+1 from irrep R of dimension 3.
 """
-irrep_O3{T}(R::Matrix{T}, l::Int) = l == 1 ? R : irrep_O3(irrep_O3(R, l - 1), R)
+irrep_O3{T}(R::AbstractMatrix{T}, l::Int) = l == 1 ? R : irrep_O3(irrep_O3(R, l - 1), R)
