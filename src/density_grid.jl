@@ -6,11 +6,14 @@ function parallel_density_grid{T}(C::Matrix{T}, width::T, d::Int, σ::T, ϵ::T =
     num_points_per_worker = fill(fld(num_points, num_workers), num_workers)
     num_points_per_worker[1:mod(num_points, num_workers)] += 1
 
-    params = map(zip(unshift!(cumsum(num_points_per_worker), 0) + 1, num_points_per_worker)) do r
+    start_indices = unshift!(cumsum(num_points_per_worker), 0) .+ 1
+    pop!(start_indices)
+    params = map(zip(start_indices, num_points_per_worker)) do r
         C[:, range(r[1], r[2])], width, d, σ, ϵ
     end
     
-    ρs_compressed = pmap(params, pids = collect(take(workers(), num_workers))) do p
+    #ρs_compressed = pmap(params, pids = collect(take(workers(), num_workers))) do p
+    ρs_compressed = pmap(params) do p
         compress(density_grid(p...), level = 9, shuffle = true, itemsize = sizeof(T))
     end
 
