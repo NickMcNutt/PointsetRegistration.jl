@@ -68,7 +68,8 @@ function irrep_O3_coeff(l::Int, m::Int, n::Int)
     :(N[$(m + l + 1), $(n + l + 1)] = $(ex))
 end
 
-@generated irrep_O3!{L}(N::AbstractMatrix, M::AbstractMatrix, R::AbstractMatrix, ::Type{Val{L}}) = Expr(:block, (irrep_O3_coeff(L, i, j) for i in -L:L, j in -L:L)..., :N)
+#@generated irrep_O3!{L}(N::AbstractMatrix, M::AbstractMatrix, R::AbstractMatrix, ::Type{Val{L}}) = Expr(:block, (irrep_O3_coeff(L, i, j) for i in -L:L, j in -L:L)..., :N)
+@generated irrep_O3!{L}(N::AbstractMatrix, M::AbstractMatrix, R::AbstractMatrix, ::Type{Val{L}}) = Expr(:block, [irrep_O3_coeff(L, i, j) for i in -L:L, j in -L:L]..., :N)
 
 """
     irrep_O3!(N, M, R)
