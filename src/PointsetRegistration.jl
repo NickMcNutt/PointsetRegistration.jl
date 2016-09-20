@@ -20,7 +20,7 @@ export
     register, exact_register, gaussian_register, register_to_reference,
 
     # synchronization.jl
-    parallel_pairwise_register, project_to_stiefel, stiefel_to_permutations,
+    parallel_pairwise_register, stiefel_to_permutations,
 
     # pointsets.jl
     trim, random_perturb!, random_permute!, random_rotate!, random_rotate_reflect!, pointsets_transform, pointsets_rmsd,

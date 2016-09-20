@@ -44,12 +44,6 @@ function parallel_pairwise_register{N, T}(n::Int, g::Int, kinds::NTuple{N, Vecto
     return D, R, P
 end
 
-function project_to_stiefel(C::AbstractMatrix, d::Int)
-    n = size(C, 1)
-    E = eigfact(Symmetric(C), n-d+1:n)
-    return E[:vectors]
-end
-
 function stiefel_to_permutations{T}(U::Matrix{T})
     n = size(U, 2)
     m = fld(size(U, 1), n)
