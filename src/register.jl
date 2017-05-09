@@ -1,5 +1,5 @@
 import Munkres: munkres
-import Combinatorics: permutations
+#import Combinatorics: permutations
 import MoreMatrices: rotation!
 
 function register{N, T}(weights::NTuple{N, T}, X::NTuple{N, Matrix{T}}, Y::NTuple{N, Matrix{T}}, C::Matrix{T}, invert::Bool = false)
@@ -62,7 +62,7 @@ function register{N, T}(weights::NTuple{N, T}, X::NTuple{N, Matrix{T}}, Y::NTupl
     return sqrt(abs(cost_min)), Q_min, P_min
 end
 
-function exact_register{T}(X::Matrix{T}, Y::Matrix{T})
+#==function exact_register{T}(X::Matrix{T}, Y::Matrix{T})
     d, n = size(X)
     s_max = -Inf
     p_min = Vector{Int}(n)
@@ -77,7 +77,7 @@ function exact_register{T}(X::Matrix{T}, Y::Matrix{T})
     P_min = eye(n)[:, p_min]
 
     return vecnorm(X - R_min * Y * P_min), R_min, P_min
-end
+end ==#
 
 function gaussian_register{T}(σ::T, X::Matrix{T}, Y::Matrix{T}, G::Matrix{T})
     num_samples = size(G, 2)
